@@ -1,0 +1,73 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="@Url.Content("~/Content/Blog.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+</head>
+<body style="background-color: #C0C0FF; padding-top: 0px;">
+    <div class="container">
+        <div class="row headerImage" style="margin:0px;">
+            <div class="col-xs-12">
+                <h2 class="text-center" style="background-color: #D95330; margin-top: 100px; text-align: match-parent; ">Computer Science And Telecommunication Engineering</h2>
+                <h2 class="text-center" style="margin-top:8px;color:white;">NSTU</h2>
+            </div>
+
+        </div>
+
+        <div class="navbar navbar-inverse" style="background-color:#501F08;margin-top:2px;margin-bottom:10px;">
+            <div class="container" style="padding-left:0px; padding-right:0px;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" style="opacity:1; padding-left:0px;padding-right:0px;">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Organization", "Index", "Organization")</li>
+                        <li>@Html.ActionLink("Course", "Index", "Course")</li>
+                        <li>@Html.ActionLink("Batch", "Index", "Batch")</li>
+                        <li>@Html.ActionLink("Trainee", "Index", "Trainee")</li>
+                        <li>@Html.ActionLink("Participant", "Index", "Participant")</li>
+                        <li>@Html.ActionLink("Question", "Index", "QuestionAnswer")</li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("LogOut", "LogOut", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <div class="content">
+                <div id="topSeparator" class="separator">
+
+                </div>
+                @RenderBody()
+
+            </div>
+            <div id="bottomSeparator" class="separator"></div>
+            <footer>
+
+                <div id="copyright">Copyright &copy; 2018,Farian Rahman</div>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                @Html.ActionLink("New Post", "Create", "NoticeInfo")
+            </footer>
+        </div>
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

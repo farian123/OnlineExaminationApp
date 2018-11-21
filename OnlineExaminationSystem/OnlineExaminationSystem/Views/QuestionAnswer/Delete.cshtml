@@ -1,0 +1,72 @@
+﻿@model OnlineExaminationSystem.Models.QuestionMark
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>QuestionMark</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuestionOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OptionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OptionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OptionNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OptionNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Exam.ExamType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exam.ExamType)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

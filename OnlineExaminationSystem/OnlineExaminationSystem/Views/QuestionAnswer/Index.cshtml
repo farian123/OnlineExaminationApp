@@ -1,0 +1,64 @@
+﻿@model IEnumerable<OnlineExaminationSystem.Models.QuestionMark>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <div style="width: 50%; display: block; overflow: hidden;">
+        @{Html.RenderAction("QuestionCreate", "QuestionAnswer");}
+    </div>
+    <div style="width:50%;">
+        <h2>Questions</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered" style="border-color:black">
+                <tr style="background-color: #CFD6E5;">
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Question)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Mark)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.QuestionOrder)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.OptionNo)
+                    </th>
+
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.OptionType)
+                    </th>
+
+                    <th class="text-center">Option</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.Question)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.Mark)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.QuestionOrder)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.OptionNo)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.OptionType)
+                        </td>
+
+                        <td style="vertical-align:middle;">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
