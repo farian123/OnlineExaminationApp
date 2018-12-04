@@ -1,0 +1,70 @@
+﻿@model IEnumerable<OnlineExamination.Models.Models.Batch>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p class="text-left">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="">Batches</h3></div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color:black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.BatchNo)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Course.CourseName)
+            </th>
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Course.Organization.OrganizationName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="text-center">Option</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.BatchNo)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Course.CourseName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td style="vertical-align:middle;">
+                    @Html.DisplayNameFor(model => model.Course.Organization.OrganizationName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+

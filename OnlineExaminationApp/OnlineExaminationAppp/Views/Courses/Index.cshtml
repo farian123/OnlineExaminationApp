@@ -1,0 +1,71 @@
+﻿@model IEnumerable<OnlineExamination.Models.Models.Course>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="text-left">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="">Courses</h3></div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color:black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.CourseCode)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Credit)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.CourseDuration)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Tags)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Organization.OrganizationName)
+            </th>
+            <th class="text-center">Option</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.CourseCode)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Credit)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.CourseDuration)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Tags)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Organization.OrganizationName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </tr>
+        }
+    </table>
+</div>

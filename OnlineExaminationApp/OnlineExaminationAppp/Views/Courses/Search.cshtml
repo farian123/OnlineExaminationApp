@@ -1,0 +1,139 @@
+﻿@model OnlineExamination.Models.Models.Course
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Search", "Courses", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-heading text-left">Course Search Criterio</div><br />
+        <div class="form-inline">
+
+            <div class="form-group">
+                <label class="control-label col-md-5">Course Name</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" name="CourseName" id="CourseName" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-5">Course Code</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" name="CourseCode" id="CourseCode" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-5">Description</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" name="Description" id="Description"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-5">Tags</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" name="Tags" id="Tags" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-5">Organization</label>
+                <div class="col-md-7">
+                    @Html.DropDownListFor(x => Model.OrganizationId, null, new { @class = "form-control" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-11">
+                    <input type="submit" value="Search" class="btn btn-default" />
+                </div>
+            </div>
+            <br />
+        </div>
+        <br />
+    </div>
+}
+@if (Model != null && Model.CourseList != null && Model.CourseList.Count > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">SL</th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.CourseName)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.CourseDuration)
+                    </th>
+                    <th class="text-center">Fees</th>
+                    <th class="text-center">
+                        Participant
+                    </th>
+                    <th class="text-center">
+                        Trainers
+                    </th>
+
+
+                    <th class="text-center">Batches</th>
+                    <th class="text-center">Option</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @{ int i = 1;}
+            @foreach (var item in Model.CourseList)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">
+                        @i
+                    </td>
+                    <td style="vertical-align: middle;">
+
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.CourseDuration)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <p>Fees add</p>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Participants.Count)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @foreach (var value in item.Trainees)
+                        {
+                            <span>@value.TraineeName,</span>
+                        }
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Batches.Count)
+                    </td>
+
+                    <td style="vertical-align: middle;">
+                        @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                        @Html.ActionLink("Details", "Details", new {id = Model.Id})
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
