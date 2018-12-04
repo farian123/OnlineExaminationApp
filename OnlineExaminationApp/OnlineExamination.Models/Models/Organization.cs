@@ -16,7 +16,7 @@ namespace OnlineExamination.Models.Models
         public int ContactNo { get; set; }
         public string About { get; set; }
         public string Logo { get; set; }
-
+        public DateTime Date { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
        
         //[NotMapped]

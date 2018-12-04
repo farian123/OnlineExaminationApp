@@ -12,11 +12,15 @@ namespace OnlineExamination.Models.Models
         public string WriteQuestion { get; set; }
         public double Mark { get; set; }
         public int QuestionOrder { get; set; }
-        public string OptionType { get; set; }
+        public int AnswerTypeId { get; set; }
         public int OptionNo { get; set; }
         public int ExamId { get; set; }
+
+
         public virtual Exam Exam { get; set; }
-        public virtual ICollection<Answer> Answers { get; set; } 
+        public virtual AnswerType AnswerTypes { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<ExamAttend> ExamAttends { get; set; } 
         //public virtual Organization Organization { get; set; }
     }
 }

@@ -33,6 +33,12 @@ namespace OnlineExamination.Repositories.Repository
         }
         public Organization GetOrganizationById(int? organizationId)
         {
+            //Course course = db.Courses
+            //    .Include(i => i.Modules.Select(s => s.Chapters) && i.Lab)
+            //    .Single(x => x.Id == id); 
+            Organization course = db.Organizations
+                .Include(i => i.Courses.Select(s => s.Batches))
+                .Single(x => x.Id == organizationId); 
             //return db.Organizations.Join(db.Courses, x => x.Id, y => y.OrganizationId).FirstOrDefault(x => x.Id == organizationId);
             //var item = db.Organizations.Where(x => x.Id == organizationId)
             //    .Join(db.Courses, or => or.Id, cou => cou.OrganizationId, (or, cou) => new {or,cou});

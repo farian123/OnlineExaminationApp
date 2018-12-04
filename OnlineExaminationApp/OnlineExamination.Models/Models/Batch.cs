@@ -16,7 +16,7 @@ namespace OnlineExamination.Models.Models
         public int CourseId { get; set; }
         //public int OrganizationIdd { get; set; }
 
-        public virtual ICollection<Participant> Participants { get; set; }
+        public virtual ICollection<BatchParticipant> BatchParticipants { get; set; }
         public virtual ICollection<BatchTrainer> BatchTrainers { get; set; }
         public virtual Course Course { get; set; }
         //public virtual Organization Organization { get; set; }

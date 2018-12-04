@@ -52,17 +52,24 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Tags, new { @class = "control-label col-md-5" })
+            @Html.LabelFor(model => model.Fees, new { @class = "control-label col-md-5" })
             <div class="col-md-7">
-                @Html.TextBoxFor(model => model.Tags, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Tags)
+                @Html.TextBoxFor(model => model.Fees, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Fees)
             </div>
         </div>
 
         <div class="form-group">
+            <label class="control-label col-md-5" for="SubjectName">Organization</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => Model.OrganizationId, Model.OrganizationListItems,"--Select--", new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.OrganizationId)
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-md-5" for="SubjectName">Session</label>
             <div class="col-md-7">
-                @Html.DropDownListFor(x => Model.OrganizationId, Model.OrganizationListItems, new { @class = "form-control" })
+                @Html.DropDownListFor(x => Model.TagsId, Model.TagListItems,"--Select--", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OrganizationId)
             </div>
         </div>

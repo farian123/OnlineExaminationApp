@@ -41,14 +41,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\AnswerType.cs" />
     <Compile Include="Models\Batch.cs" />
+    <Compile Include="Models\BatchParticipant.cs" />
     <Compile Include="Models\BatchTrainer.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseTrainer.cs" />
     <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\ExamAttend.cs" />
+    <Compile Include="Models\ExamShedule.cs" />
+    <Compile Include="Models\ExamType.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\Trainee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -29,12 +29,12 @@ namespace OnlineExamination.Repositories.Repository
         }
         public List<Course> GetAllCourse()
         {
-            return db.Courses.Include(x=>x.Organization).ToList();
+            return db.Courses.Include(x=>x.Organizations).ToList();
         }
         public Course GetCourseById(int? courseId)
         {
 
-            return db.Courses.Include(x=>x.Organization).FirstOrDefault(x => x.Id == courseId);
+            return db.Courses.Include(x=>x.Organizations).FirstOrDefault(x => x.Id == courseId);
         }
 
         public dynamic GetSelectedOrganization(int id)
@@ -49,9 +49,13 @@ namespace OnlineExamination.Repositories.Repository
                    x => x.CourseName.ToLower().Contains(course.CourseName.ToLower())
                    || x.CourseCode.ToLower().Contains(course.CourseCode.ToLower())
                    || x.Description.ToLower().Contains(course.Description.ToLower())
-                   || x.Tags.ToLower().Contains(course.Tags.ToLower())
                    || x.OrganizationId==course.OrganizationId
                    ).ToList();
+        }
+
+        public List<Tags> GetAllTags()
+        {
+            return db.Tagss.ToList();
         }
     }
 }

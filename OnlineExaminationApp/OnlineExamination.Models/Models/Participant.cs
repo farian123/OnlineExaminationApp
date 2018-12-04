@@ -15,17 +15,15 @@ namespace OnlineExamination.Models.Models
         public string Email { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
-        public string City { get; set; }
+        public int CityId { get; set; }
         public string PostCode { get; set; }
-        public string Country { get; set; }
         public string Profession { get; set; }
         public string HighestAcademic { get; set; }
         public string Image { get; set; }
-        public int BatchId { get; set; }
-        //public int CourseId { get; set; }
-        //public int OrganizationId { get; set; }
+        public virtual City Cities { get; set; }
+        public virtual ICollection<BatchParticipant> BatchParticipants { get; set; }
 
-        public virtual Batch Batch { get; set; }
+        public virtual ICollection<ExamAttend> ExamAttends { get; set; }
         //public virtual Course Course { get; set; }
         //public virtual Organization Organization { get; set; }
     }

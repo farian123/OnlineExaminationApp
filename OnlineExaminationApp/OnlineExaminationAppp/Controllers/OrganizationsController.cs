@@ -67,8 +67,10 @@ namespace OnlineExaminationAppp.Controllers
                 organization.Logo = "~/Images/" + fileName;
                 string filePath = Path.Combine(Server.MapPath("~/Images/"), fileName);
                 image1.SaveAs(filePath);
+
+                organization.Date = DateTime.Now;
                 manage.Save(organization);
-                return RedirectToAction("Edit",organization.Id);
+                return RedirectToAction("Details", new { id = organization.Id });
             }
 
             return View(organization);

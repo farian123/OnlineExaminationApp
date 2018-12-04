@@ -12,7 +12,7 @@ namespace OnlineExamination.Models.Models
         public int CourseId { get; set; }
         public int TraineeId { get; set; }
         public virtual Trainee Trainees { get; set; }
-        public virtual List<Course> Courses { get; set; }
+        public virtual Course Courses { get; set; }
 
     }
 }

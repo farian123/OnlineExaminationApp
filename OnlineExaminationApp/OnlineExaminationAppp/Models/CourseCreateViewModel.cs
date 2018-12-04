@@ -9,15 +9,27 @@ namespace OnlineExaminationAppp.Models
 {
     public class CourseCreateViewModel
     {
+        public int Id { get; set; }
+        [Required(ErrorMessage = "Course Name Required")]
         public string CourseName { get; set; }
+        [Required(ErrorMessage = "Course Code Required")]
         public string CourseCode { get; set; }
+        [Required(ErrorMessage = "Credit Required")]
         public double Credit { get; set; }
-        public int CourseDuration { get; set; }
+        [Required(ErrorMessage = "Course Duration Required")]
+        public double CourseDuration { get; set; }
         public string Description { get; set; }
-        public string Tags { get; set; }
+        [Display(Name = "Tags")]
+        [Required(ErrorMessage = "Tags Required")]
+        public int TagsId { get; set; }
+        public double Fees { get; set; }
+        public DateTime CourseDate { get; set; }
         [Display(Name = "Organization")]
+        [Required(ErrorMessage = "Organization Required")]
         public int OrganizationId { get; set; }
 
         public List<SelectListItem> OrganizationListItems { get; set; }
+
+        public List<SelectListItem> TagListItems { get; set; }
     }
 }

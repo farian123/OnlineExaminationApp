@@ -30,10 +30,10 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th class="text-center">
-                @Html.DisplayNameFor(model => model.Tags)
+                @Html.DisplayNameFor(model => model.Fees)
             </th>
             <th class="text-center">
-                @Html.DisplayNameFor(model => model.Organization.OrganizationName)
+                @Html.DisplayNameFor(model => model.Organizations.OrganizationName)
             </th>
             <th class="text-center">Option</th>
         </tr>
@@ -57,10 +57,10 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td style="vertical-align:middle;">
-                    @Html.DisplayFor(modelItem => item.Tags)
+                    @Html.DisplayFor(modelItem => item.Tagss.TageName)
                 </td>
                 <td style="vertical-align:middle;">
-                    @Html.DisplayFor(modelItem => item.Organization.OrganizationName)
+                    @Html.DisplayFor(modelItem => item.Organizations.OrganizationName)
                 </td>
                 <td style="vertical-align:middle;">
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

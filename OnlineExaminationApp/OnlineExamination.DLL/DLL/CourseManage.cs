@@ -39,5 +39,10 @@ namespace OnlineExamination.DLL.DLL
         {
             return _courseRepository.GetAllCourseBySearch(course).ToList();
         }
+
+        public List<Tags> GetAllTags()
+        {
+            return _courseRepository.GetAllTags();
+        }
     }
 }

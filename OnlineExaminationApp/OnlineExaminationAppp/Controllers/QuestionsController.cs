@@ -117,17 +117,17 @@ namespace OnlineExaminationAppp.Controllers
         {
             if (ModelState.IsValid)
             {
-                string option = question.OptionType;
-                if (option.Equals("1"))
-                {
-                    question.OptionType = "Single Answer";
-                    displayOptionType = "Single";
-                }
-                else if (option.Equals("2"))
-                {
-                    question.OptionType = "More Answer";
-                    displayOptionType = "More";
-                }
+                //int option = question.AnswerTypeId;
+                //if (option==1)
+                //{
+                //    question.AnswerTypeId = "Single Answer";
+                //    displayOptionType = "Single";
+                //}
+                //else if (option.Equals("2"))
+                //{
+                //    question.OptionType = "More Answer";
+                //    displayOptionType = "More";
+                //}
                 manage.Save(question);
                 return RedirectToAction("Index");
             }
