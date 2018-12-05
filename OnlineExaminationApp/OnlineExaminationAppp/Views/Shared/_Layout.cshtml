@@ -14,8 +14,7 @@
     <div class="container">
         <div class="row headerImage" style="margin:0px;">
             <div class="col-xs-12">
-                <h2 class="text-center" style="background-color: #D95330; margin-top: 100px; text-align: match-parent; ">Computer Science And Telecommunication Engineering</h2>
-                <h2 class="text-center" style="margin-top:8px;color:white;">NSTU</h2>
+                <h2 class="text-center" style="margin-top: 100px; text-align: match-parent; color: white;">Online Examination</h2>
             </div>
 
         </div>
@@ -93,7 +92,10 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@RenderSection("Scripts", required: false)
 
 </body>
 </html>

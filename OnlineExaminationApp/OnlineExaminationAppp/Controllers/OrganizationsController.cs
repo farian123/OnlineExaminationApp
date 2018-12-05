@@ -160,6 +160,13 @@ namespace OnlineExaminationAppp.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+        public JsonResult AutoCodeGenerated()
+        {
+            var autoCode = "Auto_" + DateTime.Now.Millisecond + "_Code";
+            return Json(autoCode, JsonRequestBehavior.AllowGet);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
