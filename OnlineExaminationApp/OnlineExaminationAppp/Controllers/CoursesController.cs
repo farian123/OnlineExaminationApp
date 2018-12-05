@@ -66,7 +66,7 @@ namespace OnlineExaminationAppp.Controllers
             var model=new CourseCreateViewModel();
             model.OrganizationListItems = organizationManage.GetAllOrganization()
                 .Select(c=>new SelectListItem(){Value = c.Id.ToString(),Text = c.OrganizationName}).ToList();
-            model.TagListItems = manage.GetAllTags().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TageName }).ToList();
+            //model.TagListItems = manage.GetAllTags().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TageName }).ToList();
             return View(model);
         }
 
@@ -88,7 +88,7 @@ namespace OnlineExaminationAppp.Controllers
 
             courseViewModel.OrganizationListItems = organizationManage.GetAllOrganization()
                 .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList();
-            courseViewModel.TagListItems = manage.GetAllTags().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TageName }).ToList();
+            //courseViewModel.TagListItems = manage.GetAllTags().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TageName }).ToList();
             //ViewBag.OrganizationId = manage.GetAllOrganization();
             return View(courseViewModel);
         }

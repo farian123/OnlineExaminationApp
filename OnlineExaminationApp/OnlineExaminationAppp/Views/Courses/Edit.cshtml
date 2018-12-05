@@ -56,14 +56,21 @@
                 @Html.ValidationMessageFor(model => model.Description)
             </div>
         </div>
-        @*<div class="form-group">
+        <div class="form-group">
             <label class="control-label col-md-5" for="SubjectName">Organization</label>
             <div class="col-md-7">
-                @Html.DropDownListFor(x => Model.OrganizationId, Model.OrganizationListItems, "--Select--", new { @class = "form-control" })
+                @Html.DropDownListFor(x => Model.OrganizationId,null, "--Select--", new {@class = "form-control"})
                 @Html.ValidationMessageFor(model => model.OrganizationId)
             </div>
         </div>
         <div class="form-group">
+            @Html.LabelFor(model => model.Tag, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.Tag, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tag)
+            </div>
+        </div>
+        @*@<div class="form-group">
             <label class="control-label col-md-5" for="SubjectName">Session</label>
             <div class="col-md-7">
                 @Html.DropDownListFor(x => Model.TagsId, Model.TagListItems, "--Select--", new { @class = "form-control" })

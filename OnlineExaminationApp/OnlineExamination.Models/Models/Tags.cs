@@ -11,6 +11,6 @@ namespace OnlineExamination.Models.Models
         public int Id { get; set; }
         public string TageName { get; set; }
 
-        public virtual ICollection<Course> Courses { get; set; }
+        //public virtual ICollection<Course> Courses { get; set; }
     }
 }

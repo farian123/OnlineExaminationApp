@@ -21,7 +21,7 @@ namespace OnlineExaminationAppp.Models
         public string Description { get; set; }
         [Display(Name = "Tags")]
         [Required(ErrorMessage = "Tags Required")]
-        public int TagsId { get; set; }
+        public string Tag { get; set; }
         public double Fees { get; set; }
         public DateTime CourseDate { get; set; }
         [Display(Name = "Organization")]
@@ -30,6 +30,6 @@ namespace OnlineExaminationAppp.Models
 
         public List<SelectListItem> OrganizationListItems { get; set; }
 
-        public List<SelectListItem> TagListItems { get; set; }
+        //public List<SelectListItem> TagListItems { get; set; }
     }
 }
