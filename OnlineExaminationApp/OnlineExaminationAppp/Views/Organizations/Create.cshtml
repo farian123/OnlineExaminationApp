@@ -1,4 +1,6 @@
-﻿@model OnlineExamination.Models.Models.Organization
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model OnlineExamination.Models.Models.Organization
 
 @{
     ViewBag.Title = "Create";
@@ -23,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrganizationCode, new { @class = "control-label col-md-5" })
             <div class="col-md-7">
-                @Html.TextBoxFor(model => model.OrganizationCode, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.OrganizationCode, new { @class = "form-control", disabled = "disabled" })
                 @Html.ValidationMessageFor(model => model.OrganizationCode)
             </div>
         </div>
