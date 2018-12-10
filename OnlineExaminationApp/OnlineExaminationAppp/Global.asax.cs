@@ -24,7 +24,9 @@ namespace OnlineExaminationAppp
             Mapper.Initialize(c =>
             {
                 c.CreateMap<CourseCreateViewModel, Course>();
+                c.CreateMap<Course, CourseCreateViewModel>();
                 c.CreateMap<SearchOrganizationViewModel, Organization>();
+                c.CreateMap<BatchViewModel, Batch>();
             });
         }
     }

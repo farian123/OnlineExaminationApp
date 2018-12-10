@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "CourseInfoAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CourseInfoAll</h2>
+
+<div>
+    @*<p class="text-left">@Html.ActionLink("Basic Info", "CourseUdateLink",new{id=Model.Id}) &nbsp;@Html.ActionLink("Assign Trainer", "Index") &nbsp;@Html.ActionLink("Create Exam", "Index")</p>*@
+    <p class="text-left"><button type="button" class="btn btn-info" id="CourseDetailsButton" value="@Convert.ToInt32(Session["CourseIdSet"])">Basic Info</button> &nbsp;<button type="button" class="btn btn-info" id="AssignTrainerButton" value="@Convert.ToInt32(Session["CourseIdSet"])">Assign Trainer</button> &nbsp;<button type="button" class="btn btn-info" id="ExamCreateButton" value="@Convert.ToInt32(Session["CourseIdSet"])">Exam Create</button></p>
+</div>
+<div id="PartialLoadDiv">
+
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="~/Scripts/Course/PartialLoaded.js"></script>
+}

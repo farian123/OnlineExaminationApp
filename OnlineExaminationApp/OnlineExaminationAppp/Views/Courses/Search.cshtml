@@ -9,50 +9,79 @@
     @Html.AntiForgeryToken()
     <div class="panel panel-default">
         <div class="panel-heading text-left">Course Search Criterio</div><br />
-        <div class="form-inline">
+        
+            <div class="row">
+                <div class="col-mid-6">
+                        <div class="">
+                            <label class="control-label col-md-5">Course Name</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" name="CourseName" id="CourseName" />
+                            </div>
+                        </div>
 
-            <div class="form-group">
-                <label class="control-label col-md-5">Course Name</label>
-                <div class="col-md-7">
-                    <input type="text" class="form-control" name="CourseName" id="CourseName" />
+                        <div class="">
+                            <label class="control-label col-md-5">Course Code</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" name="CourseCode" id="CourseCode" />
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <label class="control-label col-md-5">Description</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" name="Description" id="Description" />
+                            </div>
+                        </div>
+                        <div class="">
+                            <label class="control-label col-md-5">Trainer</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" name="Trainer" id="Trainer" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-5">Organization</label>
+                            <div class="col-md-7">
+                                @*@Html.DropDownListFor(x => Model.OrganizationId, null, new { @class = "form-control" })*@
+                            </div>
+                        </div>
+
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-5">Course Code</label>
-                <div class="col-md-7">
-                    <input type="text" class="form-control" name="CourseCode" id="CourseCode" />
+                <div class="col-mid-6">
+                        <div class="row">
+                            <div class="col-mid-12">
+                                <div class="form-inline">
+                                    <label class="">Duration</label>&nbsp;
+                                    <input type="text" class="form-control" name="DurationFrom" id="DurationFrom" />&nbsp;
+                                    <label class="">To</label>&nbsp;
+                                    <input type="text" class="form-control" name="DurationTo" id="DurationTo" />&nbsp;
+                                </div>
+                                <div class="">
+                                    <label class="control-label col-md-5">Tags</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" name="Tags" id="Tags" />
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <label class="control-label col-md-5">Participant</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" name="Participant" id="Participant" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
+                
+                
             </div>
+            
 
-            <div class="form-group">
-                <label class="control-label col-md-5">Description</label>
-                <div class="col-md-7">
-                    <input type="text" class="form-control" name="Description" id="Description"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-5">Tags</label>
-                <div class="col-md-7">
-                    <input type="text" class="form-control" name="Tags" id="Tags" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-5">Organization</label>
-                <div class="col-md-7">
-                    @Html.DropDownListFor(x => Model.OrganizationId, null, new { @class = "form-control" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
+            <div class="row">
                 <div class="col-md-11">
                     <input type="submit" value="Search" class="btn btn-default" />
                 </div>
             </div>
             <br />
-        </div>
         <br />
     </div>
 }
@@ -102,13 +131,13 @@
                         <p>Fees add</p>
                     </td>
                     <td style="vertical-align: middle;">
-                        @Html.DisplayFor(modelItem => item.Participants.Count)
+                        @*@Html.DisplayFor(modelItem => item.Participants.Count)*@
                     </td>
                     <td style="vertical-align: middle;">
-                        @foreach (var value in item.Trainees)
+                        @*@foreach (var value in item.Trainees)
                         {
                             <span>@value.TraineeName,</span>
-                        }
+                        }*@
                     </td>
                     <td style="vertical-align: middle;">
                         @Html.DisplayFor(modelItem => item.Batches.Count)

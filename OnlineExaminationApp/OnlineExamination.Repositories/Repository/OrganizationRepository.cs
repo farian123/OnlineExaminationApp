@@ -31,20 +31,32 @@ namespace OnlineExamination.Repositories.Repository
         {
             return db.Organizations.ToList();
         }
-        public Organization GetOrganizationById(int? organizationId)
+        public dynamic GetOrganizationById(int? organizationId)
         {
             //Course course = db.Courses
             //    .Include(i => i.Modules.Select(s => s.Chapters) && i.Lab)
             //    .Single(x => x.Id == id); 
-            Organization course = db.Organizations
-                .Include(i => i.Courses.Select(s => s.Batches))
-                .Single(x => x.Id == organizationId); 
+            //Organization course = db.Organizations
+            //    .Include(i => i.Courses.Select(s => s.Batches))
+            //    .Single(x => x.Id == organizationId); 
             //return db.Organizations.Join(db.Courses, x => x.Id, y => y.OrganizationId).FirstOrDefault(x => x.Id == organizationId);
             //var item = db.Organizations.Where(x => x.Id == organizationId)
             //    .Join(db.Courses, or => or.Id, cou => cou.OrganizationId, (or, cou) => new {or,cou});
             //    .Join(db.Batches, or => or.Id, cou => cou.OrganizationId, (or, cou) => new { or, cou });
-            return db.Organizations.Include(x => x.Courses).FirstOrDefault(x => x.Id == organizationId);
 
+
+            var organizationTake = from organization in db.Organizations
+                from courses in organization.Courses
+                from coursetrainer in courses.CourseTrainers
+                from batch in courses.Batches
+                from batchtrainer in batch.BatchParticipants 
+                select new
+                {
+                    organization.OrganizationName,
+                    courses.CourseName,
+                };
+            return db.Organizations.Include(x => x.Courses).FirstOrDefault(x => x.Id == organizationId);
+            //return organizationTake;
         }
 
 

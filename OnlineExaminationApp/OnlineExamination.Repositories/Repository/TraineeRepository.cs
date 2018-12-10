@@ -62,5 +62,10 @@ namespace OnlineExamination.Repositories.Repository
         {
             return new SelectList(db.Batches, "Id", "BatchNo",id);
         }
+
+        public List<Trainee> GetAllTraineeByOrganization()
+        {
+            return db.Trainees.ToList();
+        }
     }
 }

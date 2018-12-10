@@ -37,25 +37,32 @@ namespace OnlineExamination.Repositories.Repository
             return db.Courses.Include(x=>x.Organizations).FirstOrDefault(x => x.Id == courseId);
         }
 
-        public dynamic GetSelectedOrganization(int id)
+        public dynamic GetSelectedOrganization(int? id)
         {
             return new SelectList(db.Organizations, "Id", "OrganizationName",id);
         }
 
         public List<Course> GetAllCourseBySearch(Course course)
         {
-            return
-               db.Courses.Include(y=>y.Batches).Where(
+
+            List<Course> courseList = db.Courses.Include(y => y.Batches).Where(
                    x => x.CourseName.ToLower().Contains(course.CourseName.ToLower())
                    || x.CourseCode.ToLower().Contains(course.CourseCode.ToLower())
                    || x.Description.ToLower().Contains(course.Description.ToLower())
-                   || x.OrganizationId==course.OrganizationId
+                   || x.OrganizationId == course.OrganizationId
                    ).ToList();
+            return courseList;
+
         }
 
         public List<Tags> GetAllTags()
         {
             return db.Tagss.ToList();
+        }
+
+        public List<Course> GetAllCourseByOrganizationId(int organizationId)
+        {
+            return db.Courses.Where(x => x.OrganizationId == organizationId).ToList();
         }
     }
 }

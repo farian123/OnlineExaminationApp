@@ -27,9 +27,9 @@
                 @Html.DisplayNameFor(model => model.Course.CourseName)
             </th>
 
-            <th class="text-center">
+            @*<th class="text-center">
                 @Html.DisplayNameFor(model => model.Course.Organization.OrganizationName)
-            </th>
+            </th>*@
             <th class="text-center">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
@@ -55,9 +55,9 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
 
-                <td style="vertical-align:middle;">
+                @*<td style="vertical-align:middle;">
                     @Html.DisplayNameFor(model => model.Course.Organization.OrganizationName)
-                </td>
+                </td>*@
                 <td style="vertical-align:middle;">
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id })

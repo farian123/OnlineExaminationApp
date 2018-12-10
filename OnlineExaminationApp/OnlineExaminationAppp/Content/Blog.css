@@ -7,7 +7,7 @@
     text-align:center;
     font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;
     font-size:14px;
-    background-color:#BDC9D6;
+    background-color:#A3C3FA;
 }
 #header{
     padding:10px;
@@ -34,10 +34,10 @@
 #bottomSeparator{
     margin-top:0px;
 }
-.content{
+/*.content{
     margin-bottom:0px; 
     padding-bottom:10px;
-}
+}*/
 img{
     border:0px;
 }
@@ -166,18 +166,7 @@ img{
 .commentControlPanel{
 
 }
-#sidebar{
-    float:right;
-    margin-right:15px;
-    width:200px;
-    margin-top: 43px;
-}
-#sidebar a{
-    color:blue;
-}
-#main{
-    margin-right:230px;
-}
+
 #portrait, #fbAccount, #tweets, #feedList{
     margin:10px 0 10px 0;
 }
@@ -190,11 +179,10 @@ img{
 }
 
 
-
 .body-content{background-color:#ffffff;min-height:500px;border-radius:10px;box-shadow: 10px 10px 10px 10px #888888;box-sizing:border-box;}
 .content{min-height:450px;}
 .details{border-radius:10px;box-shadow: 2px 2px 2px 2px #888888;}
-.headerImage{background-image: url("/Content/Images/onlineImage.jpg");min-height:270px;}
+.headerImage{background-image: url("/Content/Images/slider_background.jpg");height:370px;}
 
 .headerRow{
     border: 1px solid black; 
@@ -209,8 +197,7 @@ img{
 }
 
 
-/*from neem*/
-.quote-thumbnail {
+/*.quote-thumbnail {
     margin-bottom: 10px;
 }
 
@@ -234,7 +221,6 @@ quote-thumbnail:hover .thumbnail {
 
 
 
-/*hover */
 .ehover1 img {
     transition: all 0.4s linear;
     -moz-transition: all 0.4s linear;
@@ -246,7 +232,6 @@ quote-thumbnail:hover .thumbnail {
     display: block;
     position: relative;
     height: 250px;
-    /* width: 55%; */
     margin: 0 auto;
 }
 
@@ -260,4 +245,4 @@ quote-thumbnail:hover .thumbnail {
     cursor: default;
     margin-bottom: 20px;
     background-color: #000;
-}
+}*/

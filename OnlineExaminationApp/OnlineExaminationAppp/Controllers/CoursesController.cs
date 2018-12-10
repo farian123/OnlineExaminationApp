@@ -18,6 +18,7 @@ namespace OnlineExaminationAppp.Controllers
     {
         CourseManage manage=new CourseManage();
         OrganizationManage organizationManage=new OrganizationManage();
+        TraineeManage traineeManage=new TraineeManage();
 
         // GET: /Courses/
         public ActionResult Index()
@@ -83,7 +84,8 @@ namespace OnlineExaminationAppp.Controllers
                 courseViewModel.CourseDate = DateTime.Now;
                 var course = Mapper.Map<Course>(courseViewModel);
                 manage.Save(course);
-                return RedirectToAction("Index");
+                return RedirectToAction("CourseInfoAll", course.Id);
+                //return RedirectToAction("Edit",course.Id);
             }
 
             courseViewModel.OrganizationListItems = organizationManage.GetAllOrganization()
@@ -94,19 +96,20 @@ namespace OnlineExaminationAppp.Controllers
         }
 
         // GET: /Courses/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Course course = manage.GetCourseById(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.OrganizationId = organizationManage.GetAllOrganization();
-            return View(course);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Course course = manage.GetCourseById(id);
+            //if (course == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //ViewBag.OrganizationId = manage.GetSelectedOrganization(id);
+            //return View(course);
+            return View();
         }
 
         // POST: /Courses/Edit/5
@@ -114,17 +117,61 @@ namespace OnlineExaminationAppp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,CourseName,CourseCode,Credit,CourseDuration,Description,Tags,OrganizationId")] Course course)
+        public ActionResult Edit(Course course, string isFormPartial)
         {
             if (ModelState.IsValid)
             {
                 manage.Update(course);
+                if (isFormPartial != null)
+                {
+                    ViewBag.OrganizationId = manage.GetSelectedOrganization(course.OrganizationId);
+                    return PartialView("CoursePv/_CourseUpdatePv");
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.OrganizationId = manage.GetSelectedOrganization(course.OrganizationId);
             return View(course);
         }
 
+        public ActionResult CourseInfoAll(int? id)
+        {
+            Session["CourseIdSet"] = id;
+            return View();
+        }
+
+        public PartialViewResult CourseEditPv()
+        {
+            int id = 1;
+            
+            Course course = manage.GetCourseById(id);
+            ViewBag.OrganizationId = manage.GetSelectedOrganization(id);
+            return PartialView("~/Views/Shared/CoursePv/_CourseEditPv.cshtml",course);
+        }
+        public PartialViewResult AssignTrainerPv()
+        {
+            var courseTrainee=new CourseTraineeViewModel();
+            //Course course = manage.GetCourseById(courseId);
+            courseTrainee.TraineeListItem = traineeManage.GetAllTrainee()
+                .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TraineeName }).ToList();
+            courseTrainee.AllTraineeByOrganization = traineeManage.GetAllTraineeByOrganization();
+            return PartialView("~/Views/Shared/TrainerPv/_TrainerAssignPv.cshtml", courseTrainee);
+        }
+        public PartialViewResult ExamCreatePv()
+        {
+            var examCreate = new ExamViewModel();
+            //Course course = manage.GetCourseById(courseId);
+            examCreate.OrganizationListItems = organizationManage.GetOrganizationById(1);
+            examCreate.CourseListItems = manage.GetCourseById(1);
+            return PartialView("~/Views/Shared/ExamPv/_ExamCreatePv.cshtml", examCreate);
+        }
+
+        //public PartialViewResult GetCourseUpdatePV(int courseId)
+        //{
+        //    Course course = manage.GetCourseById(courseId);
+        //    ViewBag.OrganizationId = manage.GetSelectedOrganization(courseId);
+            
+        //    return PartialView("~/Views/Shared/CoursePv/_CourseUpdatePv.cshtml",course);
+        //}
         // GET: /Courses/Delete/5
         //public ActionResult Delete(int? id)
         //{

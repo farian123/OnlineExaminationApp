@@ -6,15 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using OnlineExamination.DLL;
 using OnlineExamination.DLL.DLL;
 using OnlineExamination.Models.Models;
+using OnlineExaminationAppp.Models;
 
 namespace OnlineExaminationAppp.Controllers
 {
     public class BatchesController : Controller
     {
         BatchManage manage = new BatchManage();
+        OrganizationManage organizationManage=new OrganizationManage();
+        CourseManage courseManage=new CourseManage();
 
         // GET: /Batch/
         public ActionResult Index()
@@ -40,27 +44,41 @@ namespace OnlineExaminationAppp.Controllers
         // GET: /Batch/Create
         public ActionResult Create()
         {
+            var model = new BatchViewModel();
+            model.OrganizationListItems = organizationManage.GetAllOrganization()
+                .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList();
+            //model.CourseListItems = courseManage()
+            //    .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList();
+            return View(model);
             ViewBag.CourseId = manage.GetAllCourse();
             ViewBag.OrganizationId = manage.GetAllOrganization();
             return View();
         }
 
+        public JsonResult GetCourseByOrganizationId(int organizationId)
+        {
+            var courseList = courseManage.GetAllCourseByOrganizationId(organizationId);
+            var jsonResult = courseList.Select(c => new {Id = c.Id, Name = c.CourseName});
+            return Json(jsonResult, JsonRequestBehavior.AllowGet);
+        }
         // POST: /Batch/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Batch batch)
+        public ActionResult Create(BatchViewModel batch)
         {
             if (ModelState.IsValid)
             {
                 batch.StartDate = DateTime.Now;
                 batch.EndDate = DateTime.Now;
-                manage.Save(batch);
+                var batchFind = Mapper.Map<Batch>(batch);
+                manage.Save(batchFind);
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseId = manage.GetSelectedCourse(batch.CourseId);
-            ViewBag.OrganizationId = manage.GetSelectedOrganization(batch.Course.OrganizationId);
+            batch.OrganizationListItems = organizationManage.GetAllOrganization()
+                .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList();
+            
             return View(batch);
         }
 

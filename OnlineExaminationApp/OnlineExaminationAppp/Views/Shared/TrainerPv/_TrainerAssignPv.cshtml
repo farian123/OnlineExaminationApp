@@ -1,0 +1,62 @@
+﻿@model OnlineExaminationAppp.Models.CourseTraineeViewModel
+@using (Ajax.BeginForm("Edit", "Courses", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "CourseUpdateSuccess",
+    OnFailure = "CourseUpdateFailed"
+}))
+{
+    @*@Html.Hidden("isFormPartial", value: "partial");*@
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div>
+           
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                <label class="control-label col-md-5" for="SubjectName">Organization</label>
+                <div class="col-md-7">
+                    @Html.DropDownListFor(x => x.TraineeId, Model.TraineeListItem,"--Select--", new {@class = "form-control"})
+                    @*&nbsp;<input type="submit" value="+" class="btn btn-default" />&nbsp;<input type="submit" value="Add" class="btn btn-default" />*@
+                    @Html.ValidationMessageFor(model => model.TraineeId)
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                Trainer
+            </th>
+            <th class="text-center">
+                Lead Trainer
+            </th>
+
+            <th class="text-center">Option</th>
+        </tr>
+
+        @foreach (var item in Model.AllTraineeByOrganization)
+        {
+        <tr>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.TraineeName)
+            </td>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.Lead)
+            </td>
+            <td style="vertical-align: middle;">
+
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id})
+        </tr>
+        }
+    </table>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

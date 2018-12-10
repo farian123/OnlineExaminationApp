@@ -23,7 +23,7 @@ namespace OnlineExamination.DLL.DLL
         {
             return _organizationRepository.GetAllOrganization();
         }
-        public Organization GetOrganizationById(int? organizationId)
+        public dynamic GetOrganizationById(int? organizationId)
         {
             return _organizationRepository.GetOrganizationById(organizationId);
         }

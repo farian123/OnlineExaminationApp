@@ -25,12 +25,16 @@ namespace OnlineExamination.DLL.DLL
         {
             return _courseRepository.GetAllCourse();
         }
+        public List<Course> GetAllCourseByOrganizationId(int organizationId)
+        {
+            return _courseRepository.GetAllCourseByOrganizationId(organizationId);
+        }
         public Course GetCourseById(int? courseId)
         {
             return _courseRepository.GetCourseById(courseId);
         }
 
-        public dynamic GetSelectedOrganization(int id)
+        public dynamic GetSelectedOrganization(int? id)
         {
             return _courseRepository.GetSelectedOrganization(id);
         }
