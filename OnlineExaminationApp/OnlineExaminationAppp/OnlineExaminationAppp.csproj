@@ -259,6 +259,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
+<<<<<<< HEAD
     <Content Include="Scripts\Trainer\BatchPartialLoaded.js" />
     <Content Include="Scripts\Trainer\CountryCityCascading.js" />
     <Content Include="TempleteFile\js\contact_custom.js" />
@@ -309,6 +310,8 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+=======
+>>>>>>> f74fb189c322710c507fcaa19f4925f7887326ff
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -341,6 +344,7 @@
     <Content Include="Views\Questions\Details.cshtml" />
     <Content Include="Views\Questions\Edit.cshtml" />
     <Content Include="Views\Questions\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="TempleteFile\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.eot" />
     <Content Include="TempleteFile\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.svg" />
     <Content Include="TempleteFile\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.ttf" />
@@ -372,6 +376,15 @@
     <Content Include="Views\Shared\BatchPv\_ParticipantAssignPv.cshtml" />
     <Content Include="Views\Shared\BatchPv\_AssignTrainerForBatchPv.cshtml" />
     <Content Include="Views\Shared\BatchPv\_SheduleExamCreatePv.cshtml" />
+=======
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+>>>>>>> f74fb189c322710c507fcaa19f4925f7887326ff
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
