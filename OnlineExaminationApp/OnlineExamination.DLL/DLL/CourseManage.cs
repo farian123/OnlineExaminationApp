@@ -48,5 +48,10 @@ namespace OnlineExamination.DLL.DLL
         {
             return _courseRepository.GetAllTags();
         }
+
+        public List<Course> GetFixedCourseForExamCreate(int p)
+        {
+            return _courseRepository.GetFixedCourseForExamCreate(p);
+        }
     }
 }

@@ -45,17 +45,26 @@ namespace OnlineExamination.Repositories.Repository
             //    .Join(db.Batches, or => or.Id, cou => cou.OrganizationId, (or, cou) => new { or, cou });
 
 
-            var organizationTake = from organization in db.Organizations
-                from courses in organization.Courses
-                from coursetrainer in courses.CourseTrainers
-                from batch in courses.Batches
-                from batchtrainer in batch.BatchParticipants 
-                select new
-                {
-                    organization.OrganizationName,
-                    courses.CourseName,
-                };
-            return db.Organizations.Include(x => x.Courses).FirstOrDefault(x => x.Id == organizationId);
+            //var organizationTake = from organization in db.Organizations
+            //                       from courses in organization.Courses
+            //                       from coursetrainer in courses.CourseTrainers
+            //                       from batch in courses.Batches
+            //                       from batchtrainer in batch.BatchParticipants
+            //                       select new
+            //                       {
+            //                           organization.OrganizationName,
+            //                           courses.CourseName,
+            //                       };
+            //return db.Organizations.Include(x => x.Courses).FirstOrDefault(x => x.Id == organizationId);
+
+            var organization = db.Organizations.Find(organizationId);
+
+
+            //db.Organizations.Include(c => c.Courses.Select(d => d.Batches.Select(e => e.BatchParticipants)));
+            return organization;
+
+
+
             //return organizationTake;
         }
 
@@ -74,6 +83,11 @@ namespace OnlineExamination.Repositories.Repository
                     || x.ContactNo==organization.ContactNo
                     || x.Address.ToLower().Contains(organization.Address.ToLower())
                     ).ToList();
+        }
+
+        public List<Organization> GetFixedOrganizationForExamCreate(int p)
+        {
+            return db.Organizations.Where(x => x.Id == p).ToList();
         }
     }
 }

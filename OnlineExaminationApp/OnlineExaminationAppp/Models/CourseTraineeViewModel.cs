@@ -22,6 +22,6 @@ namespace OnlineExaminationAppp.Models
 
         public List<SelectListItem> TraineeListItem { get; set; }
 
-        public List<Trainee> AllTraineeByOrganization { get; set; }
+        public List<CourseTrainer> AllTraineeByCourse { get; set; }
     }
 }

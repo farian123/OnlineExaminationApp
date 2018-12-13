@@ -20,28 +20,19 @@ namespace OnlineExaminationAppp.Controllers
         OrganizationManage organizationManage=new OrganizationManage();
         CourseManage courseManage=new CourseManage();
 
-        // GET: /Batch/
         public ActionResult Index()
         {
             return View(manage.GetAllBatch().ToList());
         }
 
-        // GET: /Batch/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            
             Batch batch = manage.GetBatchById(id);
-            if (batch == null)
-            {
-                return HttpNotFound();
-            }
+            
             return View(batch);
         }
         
-        // GET: /Batch/Create
         public ActionResult Create()
         {
             var model = new BatchViewModel();
@@ -50,22 +41,9 @@ namespace OnlineExaminationAppp.Controllers
             //model.CourseListItems = courseManage()
             //    .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList();
             return View(model);
-            ViewBag.CourseId = manage.GetAllCourse();
-            ViewBag.OrganizationId = manage.GetAllOrganization();
-            return View();
         }
 
-        public JsonResult GetCourseByOrganizationId(int organizationId)
-        {
-            var courseList = courseManage.GetAllCourseByOrganizationId(organizationId);
-            var jsonResult = courseList.Select(c => new {Id = c.Id, Name = c.CourseName});
-            return Json(jsonResult, JsonRequestBehavior.AllowGet);
-        }
-        // POST: /Batch/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(BatchViewModel batch)
         {
             if (ModelState.IsValid)
@@ -74,7 +52,7 @@ namespace OnlineExaminationAppp.Controllers
                 batch.EndDate = DateTime.Now;
                 var batchFind = Mapper.Map<Batch>(batch);
                 manage.Save(batchFind);
-                return RedirectToAction("Index");
+                return RedirectToAction("BatchInfoAll", batch.Id);
             }
             batch.OrganizationListItems = organizationManage.GetAllOrganization()
                 .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList();
@@ -82,7 +60,59 @@ namespace OnlineExaminationAppp.Controllers
             return View(batch);
         }
 
-        // GET: /Batch/Edit/5
+        public ActionResult BatchInfoAll(int batchId)
+        {
+            Session["batchId"] = batchId;
+            return View();
+        }
+        public PartialViewResult BatchEditPv(int id)
+        {
+            Batch batch = manage.GetBatchById(id);
+            ViewBag.OrganizationId = manage.GetSelectedOrganization(id);
+            return PartialView("~/Views/Shared/BatchPv/_BatchEditPv.cshtml", batch);
+        }
+        public PartialViewResult AssignParticipantPv(int id)
+        {
+            var courseTrainee = new CourseTraineeViewModel();
+            //courseTrainee.CourseId = id;
+            //courseTrainee.TraineeListItem = traineeManage.GetAllTrainee()//////akane organization aktar jonno all trainer asbe
+            //    .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TraineeName }).ToList();
+            //courseTrainee.AllTraineeByCourse = traineeManage.GetAllTraineeByCourse(id);
+            return PartialView("~/Views/Shared/TrainerPv/_TrainerAssignPv.cshtml", courseTrainee);
+        }
+        public PartialViewResult AssignTrainerForBatchPv(int id)
+        {
+            var courseTrainee = new CourseTraineeViewModel();
+            //courseTrainee.CourseId = id;
+            //courseTrainee.TraineeListItem = traineeManage.GetAllTrainee()//////akane organization aktar jonno all trainer asbe
+            //    .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TraineeName }).ToList();
+            //courseTrainee.AllTraineeByCourse = traineeManage.GetAllTraineeByCourse(id);
+            return PartialView("~/Views/Shared/TrainerPv/_TrainerAssignPv.cshtml", courseTrainee);
+        }
+        public PartialViewResult SheduleExamCreatePv(int id)
+        {
+            var examCreate = new ExamViewModel();
+            //Course course = manage.GetCourseById(courseId);
+            //examCreate.OrganizationListItems = organizationManage.GetFixedOrganizationForExamCreate(id).Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList(); ;
+            //examCreate.CourseListItems = manage.GetFixedCourseForExamCreate(id).Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.CourseName }).ToList();
+            //examCreate.ExamTypeListItems = examTypeManage.GetAllExamTypes().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.ExamTypeName }).ToList();
+            //examCreate.ExamList = examManage.GetAllExamByCourseId(id);
+            return PartialView("~/Views/Shared/ExamPv/_ExamCreatePv.cshtml", examCreate);
+        }
+
+        public PartialViewResult CreateTrainerInBatchPv(int id)
+        {
+            var model = new TraineeViiewModel();
+            //model.CourseId = id;
+            //model.CountryListItems = countryManage.GetAllCountry().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.CountryName }).ToList();
+            return PartialView("~/Views/Shared/TrainerPv/_CreateTrainerForFixedCourse.cshtml", model);
+        }
+        public JsonResult GetCourseByOrganizationId(int organizationId)
+        {
+            var courseList = courseManage.GetAllCourseByOrganizationId(organizationId);
+            var jsonResult = courseList.Select(c => new { Id = c.Id, Name = c.CourseName });
+            return Json(jsonResult, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -99,11 +129,7 @@ namespace OnlineExaminationAppp.Controllers
             return View(batch);
         }
 
-        // POST: /Batch/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(Batch batch)
         {
             if (ModelState.IsValid)
@@ -131,9 +157,7 @@ namespace OnlineExaminationAppp.Controllers
         //    return View(batch);
         //}
 
-        //// POST: /Batch/Delete/5
         //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(int id)
         //{
         //    Batch batch = db.Batches.Find(id);
@@ -142,13 +166,5 @@ namespace OnlineExaminationAppp.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

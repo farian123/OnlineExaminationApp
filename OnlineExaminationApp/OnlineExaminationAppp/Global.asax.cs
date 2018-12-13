@@ -27,6 +27,8 @@ namespace OnlineExaminationAppp
                 c.CreateMap<Course, CourseCreateViewModel>();
                 c.CreateMap<SearchOrganizationViewModel, Organization>();
                 c.CreateMap<BatchViewModel, Batch>();
+                c.CreateMap<TraineeViiewModel, Trainee>();
+                c.CreateMap<ExamViewModel, Exam>();
             });
         }
     }

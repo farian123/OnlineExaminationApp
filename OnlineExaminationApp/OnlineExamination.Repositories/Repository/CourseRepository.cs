@@ -64,5 +64,10 @@ namespace OnlineExamination.Repositories.Repository
         {
             return db.Courses.Where(x => x.OrganizationId == organizationId).ToList();
         }
+
+        public List<Course> GetFixedCourseForExamCreate(int p)
+        {
+            return db.Courses.Where(x=>x.Id==p).ToList();
+        }
     }
 }
