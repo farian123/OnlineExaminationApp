@@ -1,0 +1,98 @@
+﻿@model IEnumerable<OnlineExamination.Models.Models.Trainee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="">Batches</h3></div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color:black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TraineeName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.ContactNo)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.PostCode)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Lead)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Batch.Course.Organization.OrganizationName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Batch.Course.CourseName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Batch.BatchNo)
+            </th>
+            <th class="text-center">Option</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.TraineeName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.ContactNo)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.PostCode)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Lead)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Batch.Course.Organization.OrganizationName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Batch.Course.CourseName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Batch.BatchNo)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </tr>
+        }
+    </table>
+</div>

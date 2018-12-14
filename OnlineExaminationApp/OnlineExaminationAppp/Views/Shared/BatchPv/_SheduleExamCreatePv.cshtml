@@ -1,0 +1,93 @@
+﻿@model OnlineExaminationAppp.Models.SheduleExamViewModel
+
+@using (Ajax.BeginForm("Create", "SheduleExam", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "ExamCreateSuccess",
+    OnFailure = "ExamCreateFailed"
+}))
+{
+    <div class="form-horizontal">
+        <h4>Shedule Create</h4>
+        <hr />
+        <input type="hidden" name="IsPartialForm" value="true" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExamDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.ExamId, Model.ExamListItem, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExamId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExamDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExamDate)
+                @Html.ValidationMessageFor(model => model.ExamDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                Type
+            </th>
+            <th class="text-center">
+                Topic
+            </th>
+            <th class="text-center">
+                Code
+            </th>
+            <th class="text-center">
+                Duration
+            </th>
+            <th class="text-center">
+                Full Mark
+            </th>
+            <th class="text-center">Option</th>
+        </tr>
+        @if (Model.ExamListItem.Count > 0)
+        {
+            foreach (var item in Model.ExamListItem)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">
+                        SN
+                    </td>
+                    <td style="vertical-align: middle;">
+                        Type
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.ExamCode)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @item.DHour:@item.DMinute
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.FullMark)
+                    </td>
+                    <td style="vertical-align: middle;">
+
+                        @*@Html.ActionLink("Edit", "ExamEdit", new {id = item.Id}) |
+                            @Html.ActionLink("Details", "ExamDetails", new {id = item.Id})
+                            @Html.ActionLink("Delete", "ExamDelete", new {id = item.Id})*@
+
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+</div>
