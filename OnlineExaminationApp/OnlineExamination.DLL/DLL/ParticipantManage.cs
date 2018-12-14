@@ -55,5 +55,10 @@ namespace OnlineExamination.DLL.DLL
         {
             return _participantRepository.GetSelectedBatch(id);
         }
+
+        public List<BatchParticipant> GetAllParticipantByBatchId(int batchId)
+        {
+            return _participantRepository.GetAllParticipantByBatchId(batchId);
+        }
     }
 }

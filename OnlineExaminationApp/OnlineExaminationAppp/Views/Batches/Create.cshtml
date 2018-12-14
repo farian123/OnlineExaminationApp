@@ -7,12 +7,9 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         <h4>Add Batch</h4>
         <hr />
-        @Html.ValidationSummary(true)
         <div class="form-group">
             @Html.LabelFor(model => model.BatchNo, new { @class = "control-label col-md-5" })
             <div class="col-md-7">
@@ -76,19 +73,3 @@
     
 <script src="~/Scripts/Batch/CreateBatch.js"></script>
 }
-<script type="text/javascript">
-    
-    $(function () {
-        $('#EndDate').datepicker({
-            formate: "DD/MM/YYYY"
-        }).on('dp.change', function (e) {
-            $(this).data('DatePicker').hide();
-
-        });
-    });
-</script>
-@*<script>
-        $(function () {
-            $('#StartDate').datetimepicker();
-        });
-    </script>*@

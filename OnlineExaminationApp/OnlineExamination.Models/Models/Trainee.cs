@@ -14,11 +14,12 @@ namespace OnlineExamination.Models.Models
         public string Email { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
-        public string City { get; set; }
+        public int CityId { get; set; }
         public string PostCode { get; set; }
-        public string Country { get; set; }
         public string Lead { get; set; }
         public string Image { get; set; }
+
+        public virtual City Citys { get; set; }
         public virtual List<BatchTrainer>BatchTrainers { get; set; }
         public virtual List<CourseTrainer> CourseTrainers { get; set; }
 

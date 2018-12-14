@@ -40,5 +40,10 @@ namespace OnlineExamination.DLL.DLL
             return _organizationRepository.GetAllOrganizationBySearch(organization);
             
         }
+
+        public List<Organization> GetFixedOrganizationForExamCreate(int p)
+        {
+            return _organizationRepository.GetFixedOrganizationForExamCreate(p);
+        }
     }
 }

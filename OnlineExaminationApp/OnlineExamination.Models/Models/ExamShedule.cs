@@ -13,6 +13,8 @@ namespace OnlineExamination.Models.Models
         public int DHour { get; set; }
         public int DMinute { get; set; }
 
+        public int ExamId { get; set; }
+
         public virtual Exam Exams { get; set; }
     }
 }

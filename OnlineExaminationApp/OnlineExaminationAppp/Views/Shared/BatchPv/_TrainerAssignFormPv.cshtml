@@ -1,0 +1,74 @@
+﻿@model OnlineExaminationAppp.Models.BatchViewModel
+
+@using (Ajax.BeginForm("Edit", "Batches", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "CourseUpdateSuccess",
+    OnFailure = "CourseUpdateFailed"
+}))
+{
+    @Html.Hidden("isFormPartial", value: "partial");
+
+    <div class="form-horizontal">
+        <hr />
+        <div>
+
+            <div class="form-group">
+                <label class="control-label col-md-5" for="SubjectName">Trainer</label>
+                <div class="col-md-7">
+                    @Html.DropDownListFor(x => x.TraineeId, Model.AllCourseTrainers, "--Select--", new { @class = "form-control" })&nbsp;
+                    <button type="button" id="AddTrainerForFixedBatch" data-id="@Model.Id" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">+</button>&nbsp;
+                    <input type="submit" value="Add" class="btn btn-default" />
+
+                    @Html.ValidationMessageFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                Trainer
+            </th>
+            <th class="text-center">
+                Lead Trainer
+            </th>
+
+            <th class="text-center">Option</th>
+        </tr>
+
+        @foreach (var item in Model.AllBatchTrainers)
+        {
+            <tr>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Trainees.TraineeName)
+                </td>
+                <td style="vertical-align: middle;">
+
+                    <input id="Radio1" class="form-control" type="radio" value="@item.Trainees.Lead" />
+
+                </td>
+                <td style="vertical-align: middle;">
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Trainees.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Trainees.Id })
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="PartialLoadTrainerShowDiv">
+
+            </div>
+        </div>
+    </div>
+</div>
+

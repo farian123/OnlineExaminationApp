@@ -76,11 +76,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BatchRepository.cs" />
+    <Compile Include="Repository\CityRepository.cs" />
+    <Compile Include="Repository\CountryRepository.cs" />
     <Compile Include="Repository\CourseRepository.cs" />
     <Compile Include="Repository\ExamEntryRepository.cs" />
+    <Compile Include="Repository\ExamRepository.cs" />
+    <Compile Include="Repository\ExamTypeRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\ParticipantRepository.cs" />
     <Compile Include="Repository\QuestionRepository.cs" />
+    <Compile Include="Repository\TagRepository.cs" />
     <Compile Include="Repository\TraineeRepository.cs" />
   </ItemGroup>
   <ItemGroup>

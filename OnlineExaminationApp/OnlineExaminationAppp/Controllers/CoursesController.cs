@@ -19,26 +19,22 @@ namespace OnlineExaminationAppp.Controllers
         CourseManage manage=new CourseManage();
         OrganizationManage organizationManage=new OrganizationManage();
         TraineeManage traineeManage=new TraineeManage();
+        ExamTypeManage examTypeManage=new ExamTypeManage();
+        CountryManage countryManage=new CountryManage();
+        CityManage cityManage=new CityManage();
+        ExamManage examManage = new ExamManage();
 
-        // GET: /Courses/
         public ActionResult Index()
         {
 
             return View(manage.GetAllCourse().ToList());
         }
 
-        // GET: /Courses/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            
             Course course = manage.GetCourseById(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
+           
             return View(course);
         }
         public ActionResult Search()
@@ -60,7 +56,6 @@ namespace OnlineExaminationAppp.Controllers
 
             return View();
         }
-        // GET: /Courses/Create
         public ActionResult Create()
         {
             //ViewBag.OrganizationId = manage.GetAllOrganization();
@@ -71,11 +66,7 @@ namespace OnlineExaminationAppp.Controllers
             return View(model);
         }
 
-        // POST: /Courses/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(CourseCreateViewModel courseViewModel)
         {
             //var model = new CourseCreateViewModel();
@@ -95,7 +86,6 @@ namespace OnlineExaminationAppp.Controllers
             return View(courseViewModel);
         }
 
-        // GET: /Courses/Edit/5
         public ActionResult Edit(int id)
         {
             //if (id == null)
@@ -112,59 +102,64 @@ namespace OnlineExaminationAppp.Controllers
             return View();
         }
 
-        // POST: /Courses/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Course course, string isFormPartial)
+        public ActionResult Edit(Course course)
         {
             if (ModelState.IsValid)
             {
                 manage.Update(course);
-                if (isFormPartial != null)
-                {
-                    ViewBag.OrganizationId = manage.GetSelectedOrganization(course.OrganizationId);
-                    return PartialView("CoursePv/_CourseUpdatePv");
-                }
                 return RedirectToAction("Index");
             }
             ViewBag.OrganizationId = manage.GetSelectedOrganization(course.OrganizationId);
-            return View(course);
+            return PartialView("~/Views/Shared/CoursePv/_CourseEditPv.cshtml", course);
         }
 
         public ActionResult CourseInfoAll(int? id)
         {
-            Session["CourseIdSet"] = id;
+            //ViewBag.CourseIdTaking = id;
+            Session["valuee"] = id;
             return View();
         }
 
-        public PartialViewResult CourseEditPv()
+        public PartialViewResult CourseEditPv(int id)
         {
-            int id = 1;
-            
             Course course = manage.GetCourseById(id);
             ViewBag.OrganizationId = manage.GetSelectedOrganization(id);
             return PartialView("~/Views/Shared/CoursePv/_CourseEditPv.cshtml",course);
         }
-        public PartialViewResult AssignTrainerPv()
+        public PartialViewResult AssignTrainerPv(int id)
         {
             var courseTrainee=new CourseTraineeViewModel();
-            //Course course = manage.GetCourseById(courseId);
-            courseTrainee.TraineeListItem = traineeManage.GetAllTrainee()
+            courseTrainee.CourseId = id;
+            courseTrainee.TraineeListItem = traineeManage.GetAllTrainee()//////akane organization aktar jonno all trainer asbe
                 .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.TraineeName }).ToList();
-            courseTrainee.AllTraineeByOrganization = traineeManage.GetAllTraineeByOrganization();
+            courseTrainee.AllTraineeByCourse = traineeManage.GetAllTraineeByCourse(id);
             return PartialView("~/Views/Shared/TrainerPv/_TrainerAssignPv.cshtml", courseTrainee);
         }
-        public PartialViewResult ExamCreatePv()
+        public PartialViewResult ExamCreatePv(int id)
         {
             var examCreate = new ExamViewModel();
             //Course course = manage.GetCourseById(courseId);
-            examCreate.OrganizationListItems = organizationManage.GetOrganizationById(1);
-            examCreate.CourseListItems = manage.GetCourseById(1);
+            examCreate.OrganizationListItems = organizationManage.GetFixedOrganizationForExamCreate(id).Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList(); ;
+            examCreate.CourseListItems = manage.GetFixedCourseForExamCreate(id).Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.CourseName }).ToList();
+            examCreate.ExamTypeListItems = examTypeManage.GetAllExamTypes().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.ExamTypeName }).ToList();
+            examCreate.ExamList = examManage.GetAllExamByCourseId(id);
             return PartialView("~/Views/Shared/ExamPv/_ExamCreatePv.cshtml", examCreate);
         }
 
+        public PartialViewResult CreateTrainerInCoursePv(int id)
+        {
+            var model=new TraineeViiewModel();
+            model.CourseId = id;
+            model.CountryListItems = countryManage.GetAllCountry().Select(c=>new SelectListItem() {Value= c.Id.ToString(),Text= c.CountryName}).ToList();
+            return PartialView("~/Views/Shared/TrainerPv/_CreateTrainerForFixedCourse.cshtml",model);
+        }
+
+        public JsonResult GetCityByCountryId(int countryId)
+        {
+            var jsonResult = cityManage.GetAllCity(countryId).Select(c => new { Id = c.Id, Name = c.CityName });
+            return Json(jsonResult, JsonRequestBehavior.AllowGet);
+        }
         //public PartialViewResult GetCourseUpdatePV(int courseId)
         //{
         //    Course course = manage.GetCourseById(courseId);
@@ -187,9 +182,7 @@ namespace OnlineExaminationAppp.Controllers
         //    return View(course);
         //}
 
-        //// POST: /Courses/Delete/5
         //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(int id)
         //{
         //    Course course = db.Courses.Find(id);
@@ -198,13 +191,6 @@ namespace OnlineExaminationAppp.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        
     }
 }

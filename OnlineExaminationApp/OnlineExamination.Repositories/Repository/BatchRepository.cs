@@ -57,5 +57,10 @@ namespace OnlineExamination.Repositories.Repository
         {
             return new SelectList(db.Organizations, "Id", "OrganizationName",id);
         }
+
+        public List<BatchTrainer> GetAllTrainerForFixedBatch(int batchId)
+        {
+            return db.BatchTrainers.Where(x => x.BatchId == batchId).ToList();
+        }
     }
 }
