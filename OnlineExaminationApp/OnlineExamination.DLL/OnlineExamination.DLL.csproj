@@ -40,11 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DLL\BatchManage.cs" />
+    <Compile Include="DLL\BatchTrainerManage.cs" />
+    <Compile Include="DLL\CityManage.cs" />
+    <Compile Include="DLL\CountryManage.cs" />
     <Compile Include="DLL\CourseManage.cs" />
+    <Compile Include="DLL\CourseTrainerManage.cs" />
     <Compile Include="DLL\ExamEntryManage.cs" />
+    <Compile Include="DLL\ExamManage.cs" />
+    <Compile Include="DLL\ExamTypeManage.cs" />
     <Compile Include="DLL\OrganizationManage.cs" />
     <Compile Include="DLL\ParticipantManage.cs" />
     <Compile Include="DLL\QuestionManage.cs" />
+    <Compile Include="DLL\TagManage.cs" />
     <Compile Include="DLL\TraineeManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,25 +1,26 @@
 ﻿@model OnlineExaminationAppp.Models.CourseTraineeViewModel
-@using (Ajax.BeginForm("Edit", "Courses", new AjaxOptions()
+@using (Ajax.BeginForm("AddTrainerInCourse", "Courses",null, new AjaxOptions()
 {
     HttpMethod = "POST",
-    OnSuccess = "CourseUpdateSuccess",
-    OnFailure = "CourseUpdateFailed"
-}))
+    OnSuccess = "TrainerAddedSuccess",
+    OnFailure = "TrainerAddedFailed"
+}, new { enctype = "multipart/form-data" }))
 {
     @*@Html.Hidden("isFormPartial", value: "partial");*@
-    @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <hr />
         <div>
-           
-            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.CourseId, new { @class = "form-control" })
             <div class="form-group">
-                <label class="control-label col-md-5" for="SubjectName">Organization</label>
+                <label class="control-label col-md-5" for="SubjectName">Trainer</label>
                 <div class="col-md-7">
-                    @Html.DropDownListFor(x => x.TraineeId, Model.TraineeListItem,"--Select--", new {@class = "form-control"})
-                    @*&nbsp;<input type="submit" value="+" class="btn btn-default" />&nbsp;<input type="submit" value="Add" class="btn btn-default" />*@
+                    @Html.DropDownListFor(x => x.TraineeId, Model.TraineeListItem, "--Select--", new {@class = "form-control"})&nbsp;
+                    <button type="button" id="AddTrainerForFixedCourse" data-id="@Model.CourseId" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">+</button>&nbsp;
+                    <input type="submit" value="Add" class="btn btn-default" />
+                    
                     @Html.ValidationMessageFor(model => model.TraineeId)
+                    
                 </div>
             </div>
         </div>
@@ -39,24 +40,34 @@
             <th class="text-center">Option</th>
         </tr>
 
-        @foreach (var item in Model.AllTraineeByOrganization)
+        @foreach (var item in Model.AllTraineeByCourse)
         {
         <tr>
             <td style="vertical-align: middle;">
-                @Html.DisplayFor(modelItem => item.TraineeName)
+                @Html.DisplayFor(modelItem => item.Trainees.TraineeName)
             </td>
             <td style="vertical-align: middle;">
-                @Html.DisplayFor(modelItem => item.Lead)
+                
+                <input id="Radio1" type="radio" value="@item.Trainees.Lead" disabled />
+                
             </td>
             <td style="vertical-align: middle;">
 
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Details", "Details", new {id = item.Id})
+                @Html.ActionLink("Edit", "Edit", new { TraineId = item.Trainees.Id, CourseId = item.CourseId }) |
+                @Html.ActionLink("Remove", "Remove", new { TraineId = item.Trainees.Id,CourseId=item.CourseId })
         </tr>
         }
     </table>
 </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div id="PartialLoadTrainerCreateDiv">
+
+                </div>
+            </div>
+        </div>
+    </div>

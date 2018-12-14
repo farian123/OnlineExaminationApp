@@ -55,9 +55,10 @@ namespace OnlineExamination.DLL.DLL
             return _traineeRepository.GetSelectedBatch(id);
         }
 
-        public List<Trainee> GetAllTraineeByOrganization()
+        public List<CourseTrainer> GetAllTraineeByCourse(int id)
         {
-            return _traineeRepository.GetAllTraineeByOrganization();
+            //Course course = _traineeRepository.GetCourseById(id);
+            return _traineeRepository.GetAllTraineeByCourse(id);
         }
     }
 }

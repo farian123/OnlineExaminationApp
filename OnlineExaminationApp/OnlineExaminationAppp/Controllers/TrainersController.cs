@@ -7,94 +7,136 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using OnlineExamination.DLL;
 using OnlineExamination.DLL.DLL;
 using OnlineExamination.Models.Models;
+using OnlineExaminationAppp.Models;
 
 namespace OnlineExaminationAppp.Controllers
 {
     public class TrainersController : Controller
     {
-        TraineeManage manage = new TraineeManage();
-
-        // GET: /Trainee/
+        TraineeManage traineeManage = new TraineeManage();
+        CountryManage countryManage=new CountryManage();
+        BatchTrainerManage batchTrainerManage = new BatchTrainerManage();
         public ActionResult Index()
         {
-            return View(manage.GetAllTrainee().ToList());
+            return View(traineeManage.GetAllTrainee().ToList());
         }
 
-        // GET: /Trainee/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Trainee trainee = manage.GetTraineeById(id);
-            if (trainee == null)
-            {
-                return HttpNotFound();
-            }
+            Trainee trainee = traineeManage.GetTraineeById(id);
             return View(trainee);
         }
 
-        // GET: /Trainee/Create
         public ActionResult Create()
         {
-            ViewBag.OrganizationId = manage.GetAllOrganization();
-            ViewBag.CourseId = manage.GetAllCourse();
-            ViewBag.BatchId = manage.GetAllBatch();
+            ViewBag.OrganizationId = traineeManage.GetAllOrganization();
+            ViewBag.CourseId = traineeManage.GetAllCourse();
+            ViewBag.BatchId = traineeManage.GetAllBatch();
             return View();
         }
 
-        // POST: /Trainee/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Trainee trainee,HttpPostedFileBase image1)
+        public ActionResult CreateTrainerForCourse(TraineeViiewModel traineeViiewModel, HttpPostedFileBase image1)
         {
             if (ModelState.IsValid)
             {
                 string fileName = Path.GetFileName(image1.FileName);
                 string extention = Path.GetExtension(image1.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
-                trainee.Image = "~/Images/" + fileName;
+                traineeViiewModel.Image = "~/Images/" + fileName;
                 string filePath = Path.Combine(Server.MapPath("~/Images/"), fileName);
                 image1.SaveAs(filePath);
-                manage.Save(trainee);
+
+                var model = Mapper.Map<Trainee>(traineeViiewModel);
+                traineeManage.Save(model);
+
+                if (traineeViiewModel.IsPartialForm)
+                {
+                    traineeViiewModel.CountryListItems = countryManage.GetAllCountry().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.CountryName }).ToList();
+                    return Json("Save successfull");
+
+                    //traineeViiewModel.OrganizationListItems = organizationManage.GetFixedOrganizationForExamCreate(model.CourseId).Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.OrganizationName }).ToList();
+                    //traineeViiewModel.CourseListItems = courseManageanage.GetFixedCourseForExamCreate(model.CourseId).Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.CourseName }).ToList();
+                    //traineeViiewModel.ExamTypeListItems = examTypeManage.GetAllExamTypes().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.ExamTypeName }).ToList();
+                    //traineeViiewModel.ExamList = examManage.GetAllExamByCourseId(model.CourseId);
+                    
+                }
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.OrganizationId = manage.GetSelectedOrganization(trainee.Batch.Course.OrganizationId);
-            //ViewBag.CourseId = manage.GetSelectedCourse(trainee.Batch.CourseId);
-            //ViewBag.BatchId = manage.GetSelectedBatch(trainee.BatchId);
-            return View(trainee);
+            return View(traineeViiewModel);
         }
 
-        // GET: /Trainee/Edit/5
+        [HttpPost]
+        public ActionResult CreateTrainerForBatch(TraineeViiewModel traineeViiewModel, HttpPostedFileBase image1)
+        {
+            if (ModelState.IsValid)
+            {
+                string fileName = Path.GetFileName(image1.FileName);
+                string extention = Path.GetExtension(image1.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
+                traineeViiewModel.Image = "~/Images/" + fileName;
+                string filePath = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                image1.SaveAs(filePath);
+
+                var model = Mapper.Map<Trainee>(traineeViiewModel);
+                traineeManage.Save(model);
+
+                ////////for batchTrainer insert/////////
+                BatchTrainer batchTrainer = new BatchTrainer();
+                batchTrainer.BatchId = traineeViiewModel.BatchId;
+                batchTrainer.TraineeId = model.Id;
+                batchTrainerManage.Save(batchTrainer);
+
+                if (traineeViiewModel.IsPartialForm)
+                {
+                    traineeViiewModel.CountryListItems = countryManage.GetAllCountry().Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.CountryName }).ToList();
+                    return Json("Save successfull");
+
+                }
+                return RedirectToAction("Index");
+            }
+
+            return View(traineeViiewModel);
+        }
+
+        public ActionResult AddTrainerInBatch(BatchTrainerViewModel batchTrainerViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var model = Mapper.Map<BatchTrainer>(batchTrainerViewModel);
+                batchTrainerManage.Save(model);
+                //batchTrainerViewModel.CourseTraineeListItem = traineeManage.GetAllTraineeByCourse(model.Batchs.CourseId)
+                //    .Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.Trainees.TraineeName}).ToList();
+                //coureTraineeViewModel.AllTraineeByCourse = traineeManage.GetAllTraineeByCourse(model.CourseId);
+                return Json("Save successfull");
+                //return PartialView("~/Views/Shared/TrainerPv/_TrainerAssignPv.cshtml", coureTraineeViewModel);
+            }
+            return View();
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trainee trainee = manage.GetTraineeById(id);
+            Trainee trainee = traineeManage.GetTraineeById(id);
             if (trainee == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.OrganizationId = manage.GetAllOrganization();
-            ViewBag.CourseId = manage.GetAllCourse();
-            ViewBag.BatchId = manage.GetAllBatch();
+            ViewBag.OrganizationId = traineeManage.GetAllOrganization();
+            ViewBag.CourseId = traineeManage.GetAllCourse();
+            ViewBag.BatchId = traineeManage.GetAllBatch();
             return View(trainee);
         }
 
-        // POST: /Trainee/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(Trainee trainee, HttpPostedFileBase image1)
         {
             if (ModelState.IsValid)
@@ -108,17 +150,16 @@ namespace OnlineExaminationAppp.Controllers
                     string filePath = Path.Combine(Server.MapPath("~/Images/"), fileName);
                     image1.SaveAs(filePath);
                 }
-                manage.Update(trainee);
+                traineeManage.Update(trainee);
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.OrganizationId = manage.GetSelectedOrganization(trainee.Batch.Course.OrganizationId);
-            //ViewBag.CourseId = manage.GetSelectedCourse(trainee.Batch.CourseId);
-            //ViewBag.BatchId = manage.GetSelectedBatch(trainee.BatchId);
+            //ViewBag.OrganizationId = traineeManage.GetSelectedOrganization(trainee.Batch.Course.OrganizationId);
+            //ViewBag.CourseId = traineeManage.GetSelectedCourse(trainee.Batch.CourseId);
+            //ViewBag.BatchId = traineeManage.GetSelectedBatch(trainee.BatchId);
             return View(trainee);
         }
 
-        // GET: /Trainee/Delete/5
         //public ActionResult Delete(int? id)
         //{
         //    if (id == null)

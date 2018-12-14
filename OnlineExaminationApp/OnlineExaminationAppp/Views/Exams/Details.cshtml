@@ -1,0 +1,75 @@
+﻿@model OnlineExamination.Models.Models.Exam
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Exam</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Courses.CourseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Courses.CourseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamTypes.ExamTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExamTypes.ExamTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExamCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Topic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Topic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullMark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullMark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DMinute)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DMinute)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

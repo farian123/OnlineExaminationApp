@@ -52,5 +52,10 @@ namespace OnlineExamination.DLL.DLL
         //{
         //    return _
         //}
+
+        public List<BatchTrainer> GetAllTrainerForFixedBatch(int batchId)
+        {
+            return _batchRepository.GetAllTrainerForFixedBatch(batchId);
+        }
     }
 }
