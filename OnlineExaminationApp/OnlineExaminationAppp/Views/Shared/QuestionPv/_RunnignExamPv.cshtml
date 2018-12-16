@@ -1,0 +1,49 @@
+﻿@model OnlineExaminationAppp.Models.QuestionAnswerDispleyModel
+@using (Ajax.BeginForm("NextQuestionGet", "ExamAttend", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "Success",
+    OnFailure = "Failed"
+}, new {enctype = "multipart/form-data"}))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.HiddenFor(x=>x.ExamIdd)
+            <div class="col-mid-8 form-control text-center">
+                <label class="col-mid-2 control-label text-left">( @Model.Sn ) </label>&nbsp;
+                <label class="col-mid-2 control-label text-left">@Model.OneQuestion</label>&nbsp;
+                <label class="col-mid-2 control-label text-right">Q:Mark : @Model.QuestionMark</label>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="text-center">
+        @for (int i = 0; i < Model.AnswerLis.Count(); i++)
+        {
+            if (Model.QuestionTypeName == "Single Answer")
+            {
+                <input type="radio" name="ids" id="ids" value="@Model.AnswerLis[i].Id"/>
+                <label for="ids">@Model.AnswerLis[i].Ans</label>
+                <br/>
+            }
+            else
+            {
+                <input type="checkbox" name="ids" id="ids" value="@Model.AnswerLis[i].Id"/>
+                <label for="ids">@Model.AnswerLis[i].Ans</label>
+                <br/>
+            }
+
+        }
+    </div>
+    <div class="row">
+        <div class="col-mid-12">
+
+            @*<button type="button" id="PriveousQuestionTakeButton" data-id="@Model.ExamIdd" class="btn btn-primary">Previous</button>&nbsp;*@
+            <button type="submit" id="NextQuestionTakeButton" data-id="@Model.ExamIdd" class="btn btn-primary">Next</button>&nbsp;
+            <button type="button" onclick="Location.href = '@Url.Action("FinishedExam", "ExamAttend")'" class="btn btn-default">Finish ></button>
+        </div>
+
+    </div>
+}

@@ -1,0 +1,91 @@
+﻿@model OnlineExaminationAppp.Models.ExamViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <h4>Edit</h4>
+        <hr />
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrganizationId, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.OrganizationId, Model.OrganizationListItems, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseId, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.CourseId, Model.CourseListItems, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExamTypeId, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.ExamTypeId, Model.ExamTypeListItems, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExamTypeId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExamCode, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.ExamCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExamCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Topic, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.Topic, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Topic)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullMark, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.FullMark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FullMark)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DHour, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.DHour, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DHour)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DMinute, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.DMinute, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DMinute)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7">
+                <input type="submit" value="Update" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Exam/ExamCascading.js"></script>
+}

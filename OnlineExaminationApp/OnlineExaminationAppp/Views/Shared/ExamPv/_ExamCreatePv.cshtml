@@ -1,0 +1,149 @@
+﻿@model OnlineExaminationAppp.Models.ExamViewModel
+
+@using (Ajax.BeginForm("Create","Exams",new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "ExamCreateSuccess",
+    OnFailure = "ExamCreateFailed"
+})) 
+{
+    <div class="form-horizontal">
+        <h4>Exam Create</h4>
+        <hr />
+        <input type="hidden" name="IsPartialForm" value="true" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrganizationId, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.OrganizationId, Model.OrganizationListItems,"--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseId, new {@class = "control-label col-md-5"})
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.CourseId, Model.CourseListItems,"--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExamTypeId, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+               @Html.DropDownListFor(x => x.ExamTypeId, Model.ExamTypeListItems, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExamTypeId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExamCode, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.ExamCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExamCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Topic, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.Topic, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Topic)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullMark, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.FullMark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FullMark)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DHour, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.DHour, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DHour)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DMinute, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.DMinute, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DMinute)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Serial, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                
+                @{
+                    int i = Model.ExamList.Count;
+                    i++;
+                    <p class="text-left" style="margin-top: 5px;">@i</p>
+                   
+                }
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                Type
+            </th>
+            <th class="text-center">
+                Topic
+            </th>
+            <th class="text-center">
+                Code
+            </th>
+            <th class="text-center">
+                Duration
+            </th>
+            <th class="text-center">
+                Full Mark
+            </th>
+            <th class="text-center">Option</th>
+        </tr>
+        @if (Model.ExamList.Count > 0)
+        {
+            foreach (var item in Model.ExamList)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.ExamTypes.ExamTypeName)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Topic)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.ExamCode)
+                    </td><td style="vertical-align: middle;">
+                        @item.DHour:@item.DMinute
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.FullMark)
+                    </td>
+                    <td style="vertical-align: middle;">
+
+                        @*@Html.ActionLink("Edit", "ExamEdit", new {id = item.Id}) |
+                        @Html.ActionLink("Details", "ExamDetails", new {id = item.Id})
+                        @Html.ActionLink("Delete", "ExamDelete", new {id = item.Id})*@
+
+                    </td>
+                </tr>
+            }
+        }
+        
+    </table>
+</div>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<OnlineExamination.Models.Models.Exam>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="text-left">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="">Exams</h3>
+    </div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Courses.CourseName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.ExamTypes.ExamTypeName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.ExamCode)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Topic)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.FullMark)
+            </th>
+            <th class="text-center">
+                Duration
+            </th>
+            <th class="text-center">Option</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Courses.CourseName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.ExamTypes.ExamTypeName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.ExamCode)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Topic)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.FullMark)
+                </td>
+                <td style="vertical-align: middle;">
+                     @item.DHour:@item.DMinute
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
