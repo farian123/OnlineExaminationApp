@@ -1,0 +1,103 @@
+﻿@model IEnumerable<OnlineExamination.Models.Models.Trainee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="text-left">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="">Trainer</h3></div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color:black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TraineeName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.ContactNo)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Citys.CityName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.PostCode)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Citys.Countries.CountryName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Lead)
+            </th>
+            @*<th class="text-center">
+                @Html.DisplayNameFor(model => model.BatchTrainers.Find(x=>x.BatchId==x.Batchs.Id))
+            </th>*@
+
+            @*<th class="text-center">
+                @Html.DisplayNameFor(model => model.BatchTrainers.Find(x=>x.TraineeId==model.Id).Batchs.Id==)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Batch.BatchNo)
+            </th>*@
+            <th class="text-center">Option</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align:middle;">
+                    <img src="@Url.Content(item.Image)" width="100" height="100" />
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.TraineeName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.ContactNo)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Citys.CityName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.PostCode)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Citys.Countries.CountryName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Lead)
+                    @*<input type="radio" name="Lead" id="Lead" checked="@item.Lead" value="true" />*@
+                    
+                </td>
+                @*<td style="vertical-align:middle;">
+                    @Html.DisplayFor(model => item.BatchTrainers.Find(x=>x.BatchId==x.Batchs.Id))
+
+                </td>*@
+
+                @*<td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Batch.Course.CourseName)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.Batch.BatchNo)
+                </td>*@
+                <td style="vertical-align: middle;">
+                @Html.ActionLink("Edit", "EditTrainer", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id})
+            </tr>
+        }
+    </table>
+</div>

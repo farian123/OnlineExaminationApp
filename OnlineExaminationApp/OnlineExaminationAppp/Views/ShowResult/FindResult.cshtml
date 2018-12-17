@@ -1,0 +1,54 @@
+﻿@model OnlineExaminationAppp.Models.ShowResultViewModel
+
+@{
+    ViewBag.Title = "FindResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="">Name : @Model.ParticipantName</h1>
+        <h3 class="">Organization : @Model.OrganizationName</h3>
+        <h3 class="">Course : @Model.CourseName</h3>
+
+    </div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color:black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                Exam Code
+            </th>
+            <th class="text-center">
+                Full Mark
+            </th>
+            <th class="text-center">
+                Got Mark
+            </th>
+
+            @*<th></th>*@
+        </tr>
+
+        @foreach (var item in Model.SelectedExams)
+        {
+            <tr>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.ExamCode)
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.FullMark)
+                </td>
+                <td style="vertical-align: middle;">
+                    @{ var getingMark = Model.ExamAttendsTaking.Where(x => x.Questions.ExamId == item.Id).ToList().Sum(x => x.Questions.Mark);}
+                    <p>@getingMark</p>
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+</div>

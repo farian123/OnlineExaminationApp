@@ -1,0 +1,22 @@
+﻿@model OnlineExaminationAppp.Models.OrganizationViewModel
+@{
+    ViewBag.Title = "DetailsCourse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Course Information</div>
+        <div class="panel-body">
+            <div class="form-group row">
+                
+                <div class="col-md-7 text-left">
+                    <h2>Course Name : @Html.DisplayFor(model => model.course.CourseName)</h2>
+                    <p>Course Code : @Html.DisplayFor(model => model.course.CourseCode)</p>
+                    <p>Total Trainers : @Html.DisplayFor(model => model.course.CourseTrainers.Count)</p>
+                    <p>Total Participants : @Html.DisplayFor(model => model.participantsList.Count)</p>
+                </div>
+            </div>
+           
+    </div>
+</div>

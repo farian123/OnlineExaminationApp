@@ -1,0 +1,51 @@
+﻿@model OnlineExaminationAppp.Models.ExamAttendViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("StartExam","ExamAttend"))
+{
+    <div class="form-horizontal">
+        <h4>Exam Attend</h4>
+        <hr/>
+
+        <div class="form-group">
+            <label class="control-label col-md-5" for="Organization">Organization</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.OrganizationId, Model.OrganizationListItems, "--Select--", new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.OrganizationId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="Course">Course</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.CourseId, Model.CourseListItems, new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="Course">Exam</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.ExamId, Model.ExamListItems, new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="Course">Participant</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.ParticipantId, Model.ParticipantListItems, new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" onclick="Location.href = '@Url.Action("StartExam", "ExamAttend")'" class="btn btn-default">Start Exam ></button>
+                @*@Html.ActionLink("Details", "StartExam", new {examId = Model.ExamId, participantId = Model.ParticipantId})
+                <button type="button" onclick="location.href = '@Url.Action("StartExam", "ExamAttend", new {examId = Model.ExamId, participantId = Model.ParticipantId})'"/>*@
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+<script src="~/Scripts/ExamAttend/ExamAttendCascading.js"></script>
+}

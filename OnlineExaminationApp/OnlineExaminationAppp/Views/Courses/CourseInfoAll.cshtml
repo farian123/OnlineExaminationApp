@@ -1,0 +1,42 @@
+﻿@model OnlineExaminationAppp.Models.CourseCreateViewModel
+@{
+    ViewBag.Title = "CourseInfoAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Course Information</h2>
+
+<div>
+    @*<p class="text-left">@Html.ActionLink("Basic Info", "CourseUdateLink",new{id=Model.Id}) &nbsp;@Html.ActionLink("Assign Trainer", "Index") &nbsp;@Html.ActionLink("Create Exam", "Index")</p>*@
+    <p class="text-left">
+        @*@{
+            int i;
+            i = @Convert.ToInt32(Session["valuee"]);
+        }*@
+        <button type="button" class="btn btn-info" id="CourseDetailsButton" data-id="@Model.Id">Basic Info</button>&nbsp;
+        <button type="button" class="btn btn-info" id="AssignTrainerButton" data-id="@Model.Id">Assign Trainer</button> &nbsp;
+        <button type="button" class="btn btn-info" id="ExamCreateButton" data-id="@Model.Id">Exam Create</button>
+    </p>
+    @*<button type="button" id="ExamCreateButton" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div id="PartialLoadDiv">
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+</div>
+<div id="PartialLoadDiv">
+
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="~/Scripts/Course/PartialLoaded.js"></script>
+}

@@ -1,0 +1,134 @@
+﻿@model OnlineExaminationAppp.Models.TraineeViiewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Create", "Trainers", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+        <h4>Add Trainer</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.TraineeName, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.TraineeName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TraineeName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactNo, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ContactNo)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="SubjectName">Country</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.CountryId, Model.CountryListItems, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrganizationId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="SubjectName">City</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.CityId, Model.CityListItems, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddressLine1, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.AddressLine1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AddressLine1)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddressLine2, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.AddressLine2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AddressLine2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostCode, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.PostCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PostCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lead, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @*@Html.RadioButtonFor(model => model.Lead)
+                @Html.RadioButton("Lead", Model.Lead, m.IsSelected, new { @id = m.HobbyId })*@
+                <input type="checkbox" name="Lead" id="Lead" value="true" class="form-control"/>
+                @Html.ValidationMessageFor(model => model.Lead)
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-5" for="SubjectName">Organization</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.OrganizationId, Model.OrganizationListItems,"--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrganizationId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="SubjectName">Course</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.CourseId,Model.CourseListItems,"--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="SubjectName">Batch</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.BatchId, Model.BatchListItems,"--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BatchId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                <input type="file" name="image1" id="image1" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-11">
+                <input type="submit" value="Save" class="btn btn-default"/>
+            </div>
+        </div>
+
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Trainer/CountryCityCascading.js"></script>
+}

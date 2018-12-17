@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OnlineExamination.Models.Models.Question>
+<h3>Questions</h3>
+@if (Model!=null)
+{
+    <div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                Order
+            </th>
+            <th class="text-center">
+                Question
+            </th>
+            <th class="text-center">
+                Option Type
+            </th>
+            <th class="text-center">
+                Option
+            </th>
+            @*<th class="text-center">
+                Actions
+            </th>*@
+           
+        </tr>
+        @{ int i = 1;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align: middle;">
+                    <p>@i</p>@{ i++;}
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.WriteQuestion)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.AnswerTypes.QType)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Answers.Count)
+                </td>
+                
+                @*<td style="vertical-align: middle;">
+                    @Html.ActionLink("Edit", "CourseInfoAll", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "CourseInfoAll", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Details", new { id = item.Id })*@
+            </tr>
+        }
+    </table>
+</div>
+
+}

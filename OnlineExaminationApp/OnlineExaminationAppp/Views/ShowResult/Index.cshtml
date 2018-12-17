@@ -1,0 +1,46 @@
+﻿
+@model OnlineExaminationAppp.Models.ShowResultViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("FindResult", "ShowResult"))
+{
+    <div class="form-horizontal">
+        <h4>Exam Attend</h4>
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-5" for="Organization">Organization</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.OrganizationId, Model.OrganizationListItems, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrganizationId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-5" for="Course">Course</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.CourseId, Model.CourseListItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label class="control-label col-md-5" for="ParticipantId">Participant</label>
+            <div class="col-md-7">
+                @Html.DropDownListFor(x => x.ParticipantId, Model.ParticipantListItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit"  class="btn btn-default">Show Result ></button>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script src="~/Scripts/ShowResult/ShowResultt.js"></script>
+}
+
+

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<OnlineExaminationAppp.Models.AddAnswerViewModel>
+<h3>Questions</h3>
+@{ int j = 1;}
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                SN
+            </th>
+            <th class="text-center">
+                Options
+            </th>
+            <th class="text-center">
+                Answer
+            </th>
+            <th class="text-center">
+                Actions
+            </th>
+
+        </tr>
+        @{ int i = 1;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align: middle;">
+                    <p>@i</p>@{ i++;}
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.CourrectOrNot)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.AddedWrittenAnswer)
+                </td>
+                <td style="vertical-align: middle;">
+                <button type="button" id="RemoveButton" data-id="@item.AnswerIdd" class="btn btn-primary">Remove</button>&nbsp;
+            </tr>
+        }
+    </table>
+</div>
+
+<button type="submit" id="SaveButton" class="btn btn-success">Save Question</button>

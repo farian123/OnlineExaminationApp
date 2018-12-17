@@ -1,0 +1,114 @@
+﻿@model OnlineExaminationAppp.Models.SheduleExamViewModel
+
+@using (Ajax.BeginForm("Create", "SheduleExam", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "ExamSheduleCreateSuccess",
+    OnFailure = "ExamSheduleCreateFailed"
+}))
+{
+    <div class="form-horizontal">
+        <h4>Shedule Create</h4>
+        <hr/>
+        @*@Html.HiddenFor(model => model.ExamId, new { @class = "form-control" })*@
+        <input type="hidden" name="IsPartialForm" value="true" />
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.ExamId, Model.ExamListItem, "--Select--", new { @class = "form-control" })&nbsp;
+                <button type="button" id="AddExamForShedule" data-id="@Model.CourseId" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">+</button>
+                @Html.ValidationMessageFor(model => model.ExamId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExamDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExamDate)
+                @Html.ValidationMessageFor(model => model.ExamDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered" style="border-color: black">
+        <tr style="background-color: #CFD6E5;">
+            <th class="text-center">
+                SN
+            </th>
+            <th class="text-center">
+                Type
+            </th>
+            <th class="text-center">
+                Topic
+            </th>
+            <th class="text-center">
+                Code
+            </th>
+            <th class="text-center">
+                Duration
+            </th>
+            <th class="text-center">
+                Full Mark
+            </th>
+            <th class="text-center">
+                Shedule
+            </th>
+        </tr>
+        @if (Model.ExamListItem.Count > 0)
+        {
+            int i = 1;
+            foreach (var item in Model.ExamShedulesList)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">
+                        <p>@i</p>
+                        @{ i = i + 1; }
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Exams.ExamTypes.ExamTypeName)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Exams.Topic)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Exams.ExamCode)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @item.Exams.DHour:@item.Exams.DMinute
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Exams.FullMark)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.ExamDate)
+                    </td>
+                    <td style="vertical-align: middle;">
+
+                        @*@Html.ActionLink("Edit", "ExamEdit", new {id = item.Id}) |
+                            @Html.ActionLink("Details", "ExamDetails", new {id = item.Id})
+                            @Html.ActionLink("Delete", "ExamDelete", new {id = item.Id})*@
+
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="PartialLoadTrainerShowDiv">
+
+            </div>
+        </div>
+    </div>
+</div>
